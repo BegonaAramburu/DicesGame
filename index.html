@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="ISO-8859-1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+
+<title>Insert title here</title>
+</head>
+<body>
+	<form class ="m-5 border p-4 rounded">
+		<div class="d-flex row m-2">
+			<h3 class ="col-3" >PLAYER</h3>
+			<input class="col-9" placeholder="Name">
+		</div>
+		<div class="d-flex row m-2">
+			<h-5 class="col-3">ID</h-5>
+			<input class="col-1 type="text" readonly">
+		</div>
+		<div class="d-flex row m-2">
+			<h-5 class="col-3">REGISTRATION DATE</h-5>
+			<input class="col-2">
+		</div>	
+ 	</form>
+ 	<div class="container">
+ 	<div class=row>
+ 	<div class="col-12 m-4  ">
+ 	<table class="table ">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Name</th>
+      <th scope="col">Register Date</th>
+      <th scope="col">mas cosas</th>
+    </tr>
+  </thead>
+  <tbody id="rellenoTabla">
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+	
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+	
+		var xhr;
+		if(window.XMLHttpRequest) {
+			xhr = new XMLHttpRequest();
+			}else if(window.ActiveXObject) {
+				peticion_http = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState==4 && xhr.status==200){
+				var objPlayer = JSON.parse(xhr.responseText);
+				for(var i=0; i<objPlayer.length; i++){
+					console.log(objPlayer[i]);
+					var cadena = '<th scope="row">'+objPlayer[i].playerId+'</th><td>'+objPlayer[i].playerName+'</td><td>'+objPlayer[i].altaRegistro+'</td>'				
+					document.getElementById("rellenoTabla").innerHTML += cadena;
+				}
+			}
+		}
+		xhr.open('GET','http://localhost:8090/players', true);
+		xhr.send();				
+	
+	</script>
+	
+</body>
+</html>
